@@ -78,30 +78,7 @@ export function regressPlane(numSamples: number, noise: number):
   let labelScale = d3.scale.linear()
     .domain([-10, 10])
     .range([-1, 1]);
-  // jmac change  
-  // let getLabel = (x, y) => labelScale(x + y);
-  let getLabel = (x, y) => labelScale(Math.abs(2-x));
-
-  let points: Example2D[] = [];
-  for (let i = 0; i < numSamples; i++) {
-    let x = randUniform(-radius, radius);
-    let y = randUniform(-radius, radius);
-    let noiseX = randUniform(-radius, radius) * noise;
-    let noiseY = randUniform(-radius, radius) * noise;
-    let label = getLabel(x + noiseX, y + noiseY);
-    points.push({x, y, label});
-  }
-  return points;
-}
-
-// jmac add new function
-export function regressAbs(numSamples: number, noise: number):
-  Example2D[] {
-  let radius = 6;
-  let labelScale = d3.scale.linear()
-    .domain([-10, 10])
-    .range([-1, 1]);
-  let getLabel = (x, y) => labelScale(Math.abs(x));
+  let getLabel = (x, y) => labelScale(x + y);
 
   let points: Example2D[] = [];
   for (let i = 0; i < numSamples; i++) {
@@ -134,6 +111,8 @@ export function regressGaussian(numSamples: number, noise: number):
     [4, -2.5, -1]
   ];
 
+
+      
   function getLabel(x, y) {
     // Choose the one that is maximum in abs value.
     let label = 0;
@@ -156,6 +135,50 @@ export function regressGaussian(numSamples: number, noise: number):
   };
   return points;
 }
+
+
+// jmac add new functions
+export function regressAbs1D(numSamples: number, noise: number):
+  Example2D[] {
+  let radius = 6;
+  let labelScale = d3.scale.linear()
+    .domain([-10, 10])
+    .range([-1, 1]);
+  let getLabel = (x, y) => labelScale(Math.abs(2-x));
+
+  let points: Example2D[] = [];
+  for (let i = 0; i < numSamples; i++) {
+    let x = randUniform(-radius, radius);
+    let y = randUniform(-radius, radius);
+    let noiseX = randUniform(-radius, radius) * noise;
+    let noiseY = randUniform(-radius, radius) * noise;
+    let label = getLabel(x + noiseX, y + noiseY);
+    points.push({x, y, label});
+  }
+  return points;
+}
+
+export function regressAbs2D(numSamples: number, noise: number):
+  Example2D[] {
+  let radius = 6;
+  let labelScale = d3.scale.linear()
+    .domain([-10, 10])
+    .range([-1, 1]);
+  let getLabel = (x, y) => labelScale(Math.abs(2-x)+Math.abs(3-y));
+
+  let points: Example2D[] = [];
+  for (let i = 0; i < numSamples; i++) {
+    let x = randUniform(-radius, radius);
+    let y = randUniform(-radius, radius);
+    let noiseX = randUniform(-radius, radius) * noise;
+    let noiseY = randUniform(-radius, radius) * noise;
+    let label = getLabel(x + noiseX, y + noiseY);
+    points.push({x, y, label});
+  }
+  return points;
+}
+
+
 
 export function classifySpiralData(numSamples: number, noise: number):
     Example2D[] {
