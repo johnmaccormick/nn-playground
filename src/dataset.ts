@@ -78,7 +78,9 @@ export function regressPlane(numSamples: number, noise: number):
   let labelScale = d3.scale.linear()
     .domain([-10, 10])
     .range([-1, 1]);
-  let getLabel = (x, y) => labelScale(x + y);
+  // jmac change  
+  // let getLabel = (x, y) => labelScale(x + y);
+  let getLabel = (x, y) => labelScale(Math.abs(2-x));
 
   let points: Example2D[] = [];
   for (let i = 0; i < numSamples; i++) {
@@ -91,6 +93,28 @@ export function regressPlane(numSamples: number, noise: number):
   }
   return points;
 }
+
+// jmac add new function
+export function regressAbs(numSamples: number, noise: number):
+  Example2D[] {
+  let radius = 6;
+  let labelScale = d3.scale.linear()
+    .domain([-10, 10])
+    .range([-1, 1]);
+  let getLabel = (x, y) => labelScale(Math.abs(x));
+
+  let points: Example2D[] = [];
+  for (let i = 0; i < numSamples; i++) {
+    let x = randUniform(-radius, radius);
+    let y = randUniform(-radius, radius);
+    let noiseX = randUniform(-radius, radius) * noise;
+    let noiseY = randUniform(-radius, radius) * noise;
+    let label = getLabel(x + noiseX, y + noiseY);
+    points.push({x, y, label});
+  }
+  return points;
+}
+
 
 export function regressGaussian(numSamples: number, noise: number):
   Example2D[] {

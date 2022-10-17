@@ -1,0 +1,8 @@
+to get `npm run serve` working:
+
+1.
+export SHELL="/c/Program Files/Git/bin/bash"
+
+2.
+in node_modules/spawn-default-shell/src/get-shell.js, change `const DETECT_SH_REGEX = /sh$/;` to `const DETECT_SH_REGEX = /sh/;`
+
